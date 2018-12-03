@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">SpellBook</string>
+    <string name="MainMenu">Options</string>
+    <string name="NewBookBtn">New Spellbook</string>
+    <string name="ViewBooksButton">View Spellbooks</string>
+    <string name="title_activity_new_spellbook">NewSpellbook</string>
+</resources>
