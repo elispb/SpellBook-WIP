@@ -4,4 +4,5 @@
     <string name="NewBookBtn">New Spellbook</string>
     <string name="ViewBooksButton">View Spellbooks</string>
     <string name="title_activity_new_spellbook">NewSpellbook</string>
+    <string name="AddButton">Add Spell</string>
 </resources>

@@ -17,7 +17,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".CreateSpellbookActivity" />
-        <activity android:name=".ViewSpellLevelActivity"></activity>
+        <activity android:name=".ViewSpellLevelActivity" />
+        <activity android:name=".AddSpellActivity"></activity>
     </application>
 
 </manifest>
