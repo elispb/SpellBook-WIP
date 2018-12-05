@@ -3,6 +3,7 @@ package com.browngmail.p.elis.spellbook;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -84,9 +85,13 @@ public class AddSpellActivity extends AppCompatActivity {
                 Toast toast = Toast.makeText(context, text, duration);
                 toast.show();
 
-
                 //View Spell
                 intent = new Intent(view.getContext(), DisplaySpellActivity.class);
+                //TODO Fix database access so I can load the spell
+                //db = mDbHelper.getReadableDatabase();
+                //Cursor c = db.rawQuery("SELECT ID FROM SPELLS ORDER BY ID DESC", null);
+                //String id  = c.getString(0);
+                //intent.putExtra("SpellID",id);
                 startActivity(intent);
             }
         });

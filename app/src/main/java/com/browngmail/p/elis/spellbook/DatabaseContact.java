@@ -28,7 +28,7 @@ public class DatabaseContact {
     public static final String TEXT_TYPE = " TEXT";
     private static final String COMMA_SEP = ",";
 
-    public static final String SQL_CREATE_SPELLS_TABLE = "CREATE TABLE " + SpellEntry.TABLE_NAME +
+    private static final String SQL_CREATE_SPELLS_TABLE = "CREATE TABLE " + SpellEntry.TABLE_NAME +
             " (" + SpellEntry._ID + " INTEGER PRIMARY KEY" + COMMA_SEP +
             SpellEntry.COLUMN_NAME_SPELL_NAME + COMMA_SEP +
             SpellEntry.COLUMN_NAME_LEVEL + COMMA_SEP +
@@ -42,7 +42,10 @@ public class DatabaseContact {
             SpellEntry.COLUMN_NAME_AT_HIGHER_LEVELS + COMMA_SEP +
             SpellEntry.COLUMN_NAME_SOURCE + COMMA_SEP +
             SpellEntry.COLUMN_NAME_PAGE + " )";
-    public static final String SQL_DELETE_SPELLS_TABLE = "DROP TABLE IF EXISTS " + SpellEntry.TABLE_NAME;
+
+    private static final String SQL_DELETE_SPELLS_TABLE = "DROP TABLE IF EXISTS " + SpellEntry.TABLE_NAME;
+
+    private static final String SQL_GET_LAST_SPELL = "SELECT TOP 1 ID FROM TABLE SPELLS ORDER BY ID DESC";
 
 
     public static class SpellDBHelper extends SQLiteOpenHelper {
