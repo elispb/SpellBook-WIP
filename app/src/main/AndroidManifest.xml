@@ -18,7 +18,8 @@
         </activity>
         <activity android:name=".CreateSpellbookActivity" />
         <activity android:name=".ViewSpellLevelActivity" />
-        <activity android:name=".AddSpellActivity"></activity>
+        <activity android:name=".AddSpellActivity" />
+        <activity android:name=".DisplaySpellActivity"></activity>
     </application>
 
 </manifest>

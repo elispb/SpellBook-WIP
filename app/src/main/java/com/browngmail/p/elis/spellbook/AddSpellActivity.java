@@ -55,7 +55,7 @@ public class AddSpellActivity extends AppCompatActivity {
                 RadioButton Ritual = findViewById(R.id.RitualRadioButton);
                 contentValues.put(DatabaseContact.SpellEntry.COLUMN_NAME_RITUAL, (String) Ritual.getText());
                 Intent intent = getIntent();
-                contentValues.put(DatabaseContact.SpellEntry.COLUMN_NAME_LEVEL,(intent.getStringExtra("Level")) );
+                contentValues.put(DatabaseContact.SpellEntry.COLUMN_NAME_LEVEL, (intent.getStringExtra("Level")));
                 Spinner spin = findViewById(R.id.SchoolSpinner);
                 contentValues.put(DatabaseContact.SpellEntry.COLUMN_NAME_SCHOOl, spin.getSelectedItem().toString());
                 EditText CastingTime = findViewById(R.id.CastingTimeField);
@@ -83,6 +83,11 @@ public class AddSpellActivity extends AppCompatActivity {
 
                 Toast toast = Toast.makeText(context, text, duration);
                 toast.show();
+
+
+                //View Spell
+                intent = new Intent(view.getContext(), DisplaySpellActivity.class);
+                startActivity(intent);
             }
         });
     }
