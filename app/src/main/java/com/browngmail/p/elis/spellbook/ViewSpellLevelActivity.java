@@ -13,7 +13,7 @@ public class ViewSpellLevelActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_spell_level);
-        TextView title = findViewById(R.id.SpellLevelTitle);
+        final TextView title = findViewById(R.id.SpellLevelTitle);
         Intent intent = getIntent();
         title.setText(intent.getStringExtra("level"));
 
@@ -21,6 +21,7 @@ public class ViewSpellLevelActivity extends AppCompatActivity {
         AddSpell.setOnClickListener(new Button.OnClickListener() {
             public void onClick(View view) {
                 Intent intent = new Intent(view.getContext(), AddSpellActivity.class);
+                intent.putExtra("Level",(String)title.getText());
                 startActivity(intent);
             }
         });
