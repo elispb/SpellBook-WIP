@@ -23,8 +23,8 @@
             android:layout_marginTop="8dp"
             android:layout_weight="1"
             android:ems="10"
+            android:hint="@string/Add_Name"
             android:inputType="textPersonName"
-            android:text="Name"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -38,6 +38,7 @@
             android:layout_marginEnd="8dp"
             android:layout_marginRight="8dp"
             android:ems="10"
+            android:hint="@string/Add_Description"
             android:inputType="textMultiLine"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
@@ -54,6 +55,7 @@
             android:layout_marginEnd="8dp"
             android:layout_marginRight="8dp"
             android:ems="10"
+            android:hint="@string/Add_Higher_level_Description"
             android:inputType="textMultiLine"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -71,8 +73,8 @@
             android:layout_marginBottom="8dp"
             android:layout_weight="1"
             android:ems="10"
+            android:hint="@string/Add_Page"
             android:inputType="textPersonName"
-            android:text="Page"
             app:layout_constraintBottom_toTopOf="@+id/SaveSpellButton"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
@@ -89,8 +91,8 @@
             android:layout_marginEnd="8dp"
             android:layout_marginRight="8dp"
             android:ems="10"
+            android:hint="@string/Add_Range"
             android:inputType="textPersonName"
-            android:text="Range"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/CastingTimeField" />
@@ -105,8 +107,8 @@
             android:layout_marginEnd="8dp"
             android:layout_marginRight="8dp"
             android:ems="10"
+            android:hint="@string/Add_Components"
             android:inputType="textPersonName"
-            android:text="Components"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/RangeField" />
@@ -121,8 +123,8 @@
             android:layout_marginEnd="8dp"
             android:layout_marginRight="8dp"
             android:ems="10"
+            android:hint="@string/Add_Duration"
             android:inputType="textPersonName"
-            android:text="Duration"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/ComponentsField" />
@@ -130,15 +132,15 @@
         <EditText
             android:id="@+id/CastingTimeField"
             android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="41dp"
             android:layout_marginStart="8dp"
             android:layout_marginLeft="8dp"
             android:layout_marginTop="8dp"
             android:layout_marginEnd="8dp"
             android:layout_marginRight="8dp"
             android:ems="10"
+            android:hint="@string/Add_Casting_Time"
             android:inputType="textPersonName"
-            android:text="Casting Time"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/SchoolSpinner" />
@@ -152,8 +154,8 @@
             android:layout_marginTop="8dp"
             android:layout_weight="1"
             android:ems="10"
+            android:hint="@string/Add_Source"
             android:inputType="textPersonName"
-            android:text="Source"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/HigherDesc" />
 

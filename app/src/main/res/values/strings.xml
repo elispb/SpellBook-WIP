@@ -6,4 +6,36 @@
     <string name="title_activity_new_spellbook">NewSpellbook</string>
     <string name="AddButton">Add Spell</string>
     <string name="SavedMSG">Saved!</string>
+    //Add Spell Hints
+    <string name="Add_Name">Name</string>
+    <string name="Add_Casting_Time">Casting Time</string>
+    <string name="Add_Range">Range</string>
+    <string name="Add_Components">Components</string>
+    <string name="Add_Duration">Duration</string>
+    <string name="Add_Description">Spell Description</string>
+    <string name="Add_Higher_level_Description">At Higher Levels...</string>
+    <string name="Add_Source">Source</string>
+    <string name="Add_Page">Page No.</string>
+    //Add Spell other
+    <string name="Ritual_Toggle">Ritual</string>
+    //Schools of Magic
+    <string name="Abjuration">Abjuration</string>
+    <string name="Conjuration">Conjuration</string>
+    <string name="Divination">Divination</string>
+    <string name="Enchantment">Enchantment</string>
+    <string name="Evocation">Evocation</string>
+    <string name="Illusion">Illusion</string>
+    <string name="Necromancy">Necromancy</string>
+    <string name="Transmutation">Transmutation</string>
+    //Spell Levels
+    <string name="Zero_Level">Cantrip</string>
+    <string name="First_Level">1st Level</string>
+    <string name="Second_Level">2nd Level</string>
+    <string name="Third_Level">3rd Level</string>
+    <string name="Fourth_Level">4th Level</string>
+    <string name="Fifth_Level">5th Level</string>
+    <string name="Sixth_Level">6th Level</string>
+    <string name="Seventh_Level">7th Level</string>
+    <string name="Eight_Level">8th Level</string>
+    <string name="Ninth_Level">9th Level</string>
 </resources>

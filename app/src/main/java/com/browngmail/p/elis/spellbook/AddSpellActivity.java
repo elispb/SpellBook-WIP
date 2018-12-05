@@ -26,9 +26,14 @@ public class AddSpellActivity extends AppCompatActivity {
 
         //Populate Spinner
         List<String> spinnerArray =  new ArrayList<>();
-        spinnerArray.add("Evocation");
-        spinnerArray.add("Conjuration");
-        //TODO Add rest of schools
+        spinnerArray.add(getResources().getString(R.string.Abjuration));
+        spinnerArray.add(getResources().getString(R.string.Conjuration));
+        spinnerArray.add(getResources().getString(R.string.Divination));
+        spinnerArray.add(getResources().getString(R.string.Enchantment));
+        spinnerArray.add(getResources().getString(R.string.Evocation));
+        spinnerArray.add(getResources().getString(R.string.Illusion));
+        spinnerArray.add(getResources().getString(R.string.Necromancy));
+        spinnerArray.add(getResources().getString(R.string.Transmutation));
 
         ArrayAdapter<String> adapter = new ArrayAdapter<>(
                 this, android.R.layout.simple_spinner_item, spinnerArray);
