@@ -75,7 +75,8 @@ public class AddSpellActivity extends AppCompatActivity {
                 contentValues.put(DatabaseContact.SpellEntry.COLUMN_NAME_SOURCE, Source.getText().toString());
                 EditText Page = findViewById(R.id.PageField);
                 contentValues.put(DatabaseContact.SpellEntry.COLUMN_NAME_PAGE, Page.getText().toString());
-                db.insert(DatabaseContact.SpellEntry.TABLE_NAME, null, contentValues);
+
+                long newRowId = db.insert(DatabaseContact.SpellEntry.TABLE_NAME, null, contentValues);
 
                 //Saved MSG
                 Context context = getApplicationContext();
@@ -87,11 +88,7 @@ public class AddSpellActivity extends AppCompatActivity {
 
                 //View Spell
                 intent = new Intent(view.getContext(), DisplaySpellActivity.class);
-                //TODO Fix database access so I can load the spell
-                //db = mDbHelper.getReadableDatabase();
-                //Cursor c = db.rawQuery("SELECT ID FROM SPELLS ORDER BY ID DESC", null);
-                //String id  = c.getString(0);
-                //intent.putExtra("SpellID",id);
+                intent.putExtra("SpellID",String.valueOf(newRowId));
                 startActivity(intent);
             }
         });

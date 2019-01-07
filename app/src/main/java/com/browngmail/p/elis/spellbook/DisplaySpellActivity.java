@@ -20,5 +20,7 @@ public class DisplaySpellActivity extends AppCompatActivity {
 
         Toast toast = Toast.makeText(context, text, duration);
         toast.show();
+
+        //TODO Read and display spell from DB
     }
 }
