@@ -48,49 +48,106 @@ public class AddSpellActivity extends AppCompatActivity {
         Button SaveSpell = findViewById(R.id.SaveSpellButton);
         SaveSpell.setOnClickListener(new Button.OnClickListener() {
             public void onClick(View view) {
-                //Save Spell
-                SQLiteDatabase db = mDbHelper.getWritableDatabase();
-                ContentValues contentValues = new ContentValues();
-                EditText SpellName = findViewById(R.id.SpellNameField);
-                contentValues.put(DatabaseContact.SpellEntry.COLUMN_NAME_SPELL_NAME, SpellName.getText().toString());
-                RadioButton Ritual = findViewById(R.id.RitualRadioButton);
-                contentValues.put(DatabaseContact.SpellEntry.COLUMN_NAME_RITUAL, (String) Ritual.getText());
-                Intent intent = getIntent();
-                contentValues.put(DatabaseContact.SpellEntry.COLUMN_NAME_LEVEL, (intent.getStringExtra("Level")));
-                Spinner spin = findViewById(R.id.SchoolSpinner);
-                contentValues.put(DatabaseContact.SpellEntry.COLUMN_NAME_SCHOOl, spin.getSelectedItem().toString());
-                EditText CastingTime = findViewById(R.id.CastingTimeField);
-                contentValues.put(DatabaseContact.SpellEntry.COLUMN_NAME_CASTING_TIME, CastingTime.getText().toString());
-                EditText Range = findViewById(R.id.RangeField);
-                contentValues.put(DatabaseContact.SpellEntry.COLUMN_NAME_RANGE, Range.getText().toString());
-                EditText Components = findViewById(R.id.ComponentsField);
-                contentValues.put(DatabaseContact.SpellEntry.COLUMN_NAME_COMPONENTS, Components.getText().toString());
-                EditText Duration = findViewById(R.id.DurationField);
-                contentValues.put(DatabaseContact.SpellEntry.COLUMN_NAME_DURATION, Duration.getText().toString());
-                EditText Description = findViewById(R.id.DescField);
-                contentValues.put(DatabaseContact.SpellEntry.COLUMN_NAME_DESCRIPTION, Description.getText().toString());
-                EditText HigherLevel = findViewById(R.id.HigherDesc);
-                contentValues.put(DatabaseContact.SpellEntry.COLUMN_NAME_AT_HIGHER_LEVELS, HigherLevel.getText().toString());
-                EditText Source = findViewById(R.id.SourceField);
-                contentValues.put(DatabaseContact.SpellEntry.COLUMN_NAME_SOURCE, Source.getText().toString());
-                EditText Page = findViewById(R.id.PageField);
-                contentValues.put(DatabaseContact.SpellEntry.COLUMN_NAME_PAGE, Page.getText().toString());
+                Spell s = ValidateInput();
+                if(s != null) {
+                    //Save Spell
+                    SQLiteDatabase db = mDbHelper.getWritableDatabase();
+                    ContentValues contentValues = new ContentValues();
+                    contentValues.put(DatabaseContact.SpellEntry.COLUMN_NAME_SPELL_NAME, s.name);
+                    contentValues.put(DatabaseContact.SpellEntry.COLUMN_NAME_RITUAL, s.ritual.toString());
+                    contentValues.put(DatabaseContact.SpellEntry.COLUMN_NAME_LEVEL, s.level);
+                    contentValues.put(DatabaseContact.SpellEntry.COLUMN_NAME_SCHOOl, s.school);
+                    contentValues.put(DatabaseContact.SpellEntry.COLUMN_NAME_CASTING_TIME, s.castingTime);
+                    contentValues.put(DatabaseContact.SpellEntry.COLUMN_NAME_RANGE, s.range);
+                    contentValues.put(DatabaseContact.SpellEntry.COLUMN_NAME_COMPONENTS, s.materialComponents);
+                    contentValues.put(DatabaseContact.SpellEntry.COLUMN_NAME_DURATION, s.duration);
+                    contentValues.put(DatabaseContact.SpellEntry.COLUMN_NAME_DESCRIPTION, s.description);
+                    contentValues.put(DatabaseContact.SpellEntry.COLUMN_NAME_AT_HIGHER_LEVELS,s.higherLevelDescription);
+                    contentValues.put(DatabaseContact.SpellEntry.COLUMN_NAME_SOURCE, s.source);
+                    contentValues.put(DatabaseContact.SpellEntry.COLUMN_NAME_PAGE, s.pageNo);
 
-                long newRowId = db.insert(DatabaseContact.SpellEntry.TABLE_NAME, null, contentValues);
+                    long newRowId = db.insert(DatabaseContact.SpellEntry.TABLE_NAME, null, contentValues);
 
-                //Saved MSG
-                Context context = getApplicationContext();
-                CharSequence text = getResources().getString(R.string.SavedMSG);
-                int duration = Toast.LENGTH_LONG;
+                    //Saved MSG
+                    Context context = getApplicationContext();
+                    CharSequence text = getResources().getString(R.string.SavedMSG);
+                    int duration = Toast.LENGTH_LONG;
 
-                Toast toast = Toast.makeText(context, text, duration);
-                toast.show();
+                    Toast toast = Toast.makeText(context, text, duration);
+                    toast.show();
 
-                //View Spell
-                intent = new Intent(view.getContext(), DisplaySpellActivity.class);
-                intent.putExtra("SpellID",String.valueOf(newRowId));
-                startActivity(intent);
+                    //View Spell
+                    Intent intent = new Intent(view.getContext(), DisplaySpellActivity.class);
+                    intent.putExtra("SpellID", String.valueOf(newRowId));
+                    startActivity(intent);
+                }
             }
         });
+    }
+
+    Spell ValidateInput(){
+        String errorMSG = "";
+
+        EditText spellNameView = findViewById(R.id.SpellNameField);
+        String spellName = spellNameView.getText().toString();
+        if(spellName.isEmpty()){
+            errorMSG = "noName";
+        }
+
+        RadioButton Ritual = findViewById(R.id.RitualRadioButton);
+
+        Intent intent = getIntent();
+        String level = intent.getStringExtra("Level");
+
+        Spinner spin = findViewById(R.id.SchoolSpinner);
+        String school = spin.getSelectedItem().toString();
+        if(school.isEmpty()){
+            errorMSG = "noSchool";
+        }
+
+        EditText castingTimeView = findViewById(R.id.CastingTimeField);
+        String castingTime = castingTimeView.getText().toString();
+        if(castingTime.isEmpty()){
+            errorMSG = "noCastingTime";
+        }
+
+        EditText rangeView = findViewById(R.id.RangeField);
+        String range = rangeView.getText().toString();
+        if(range.isEmpty()){
+            errorMSG = "noRange";
+        }
+
+        EditText componentsView = findViewById(R.id.ComponentsField);
+        String material = componentsView.getText().toString();
+        if(material.isEmpty()){
+            errorMSG = "noMaterial";
+        }
+
+        EditText durationView = findViewById(R.id.DurationField);
+        String duration = durationView.getText().toString();
+        if(duration.isEmpty()){
+            errorMSG = "noDuration";
+        }
+
+        EditText descriptionView = findViewById(R.id.DescField);
+        String description = descriptionView.getText().toString();
+        if(description.isEmpty()){
+            errorMSG = "noDescription";
+        }
+
+        EditText higherDescView = findViewById(R.id.HigherDesc);
+        String higherDesc = higherDescView.getText().toString();
+
+        EditText sourceView = findViewById(R.id.SourceField);
+        String source = sourceView.getText().toString();
+
+        EditText pageView = findViewById(R.id.PageField);
+        String page = pageView.getText().toString();
+
+        if(errorMSG.isEmpty()) {
+            Spell s = new Spell(spellName, Ritual.isChecked(), level, school, castingTime, range, null, null, null, material, duration, description, higherDesc, source, page);
+            return s;
+        }
+        return null;
     }
 }

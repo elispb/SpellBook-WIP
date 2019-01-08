@@ -42,7 +42,6 @@ public class Spell {
         higherLevelDescription = higherLevelDescriptionIn;
         source = sourceIn;
         pageNo = pageIn;
-
     }
 
     void SetID(int idIn) throws Exception {
