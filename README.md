@@ -13,3 +13,4 @@ Android app for managing spells in D&D 5e
 
 - Once a spell is marked as a ritual this choice cannot be undone
 - ~~Saving a spell crashes the activity~~
+- ~~Loading a spell crashes the activity~~
