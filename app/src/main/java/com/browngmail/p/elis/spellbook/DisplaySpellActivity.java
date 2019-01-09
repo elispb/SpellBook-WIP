@@ -27,7 +27,18 @@ public class DisplaySpellActivity extends AppCompatActivity {
 
         //TODO Read and display spell from DB
         final DatabaseContact.SpellDBHelper mDbHelper = new DatabaseContact.SpellDBHelper(this);
-        SQLiteDatabase db = mDbHelper.getReadableDatabase();
+        Spell spellToDisplay;
+        try {
+            spellToDisplay = new Spell(spellID);
+            spellToDisplay = spellToDisplay.Load(mDbHelper);
+            TextView spellNameView = findViewById(R.id.NameDisplay);
+            spellNameView.setText(spellToDisplay.name);
+        }
+        catch(Exception e){
+            toast = Toast.makeText(context, e.getMessage(), duration);
+            toast.show();
+        }
+        /*SQLiteDatabase db = mDbHelper.getReadableDatabase();
 
         String[] projection = {
                 BaseColumns._ID,
@@ -60,6 +71,6 @@ public class DisplaySpellActivity extends AppCompatActivity {
         cursor.moveToFirst();
         String s = cursor.getString(cursor.getColumnIndexOrThrow(DatabaseContact.SpellEntry.COLUMN_NAME_SPELL_NAME));
         TextView spellNameView = findViewById(R.id.NameDisplay);
-        spellNameView.setText(s);
+        spellNameView.setText(s);*/
     }
 }

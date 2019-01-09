@@ -2,7 +2,10 @@ package com.browngmail.p.elis.spellbook;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.provider.BaseColumns;
+import android.widget.TextView;
 
 import java.util.List;
 
@@ -24,6 +27,9 @@ public class Spell {
     String source;
     String pageNo;
 
+    Spell(CharSequence spellID) throws Exception {
+        SetID(Integer.parseInt(spellID.toString()));
+    }
     Spell(String nameIn, Boolean ritualIn, String levelIn, String schoolIn, String castingTimeIn, String rangeIn, Boolean v, Boolean s, Boolean m, String materialIn, String durationIn, String descriptionIn, String higherLevelDescriptionIn, String sourceIn, String pageIn){
         v = v != null ? v : false;
         s = s != null ? s : false;
@@ -85,5 +91,57 @@ public class Spell {
             return null;
         }
         return String.valueOf(newRowId);
+    }
+
+    Spell Load(DatabaseContact.SpellDBHelper mDbHelper){
+        SQLiteDatabase db = mDbHelper.getReadableDatabase();
+
+        String[] projection = {
+                BaseColumns._ID,
+                DatabaseContact.SpellEntry.COLUMN_NAME_SPELL_NAME,
+                DatabaseContact.SpellEntry.COLUMN_NAME_RITUAL,
+                DatabaseContact.SpellEntry.COLUMN_NAME_LEVEL,
+                DatabaseContact.SpellEntry.COLUMN_NAME_SCHOOl,
+                DatabaseContact.SpellEntry.COLUMN_NAME_CASTING_TIME,
+                DatabaseContact.SpellEntry.COLUMN_NAME_RANGE,
+                DatabaseContact.SpellEntry.COLUMN_NAME_COMPONENTS,
+                DatabaseContact.SpellEntry.COLUMN_NAME_DURATION,
+                DatabaseContact.SpellEntry.COLUMN_NAME_DESCRIPTION,
+                DatabaseContact.SpellEntry.COLUMN_NAME_AT_HIGHER_LEVELS,
+                DatabaseContact.SpellEntry.COLUMN_NAME_SOURCE,
+                DatabaseContact.SpellEntry.COLUMN_NAME_PAGE
+        };
+
+        String selection = BaseColumns._ID + " = ?";
+        String[] selectionArgs = {Integer.toString(this.id)};
+
+        Cursor cursor = db.query(
+                DatabaseContact.SpellEntry.TABLE_NAME,
+                projection,
+                selection,
+                selectionArgs,
+                null,
+                null,
+                null
+        );
+
+        if(cursor.getCount() > 0) {
+            cursor.moveToFirst();
+            this.name = cursor.getString(cursor.getColumnIndexOrThrow(DatabaseContact.SpellEntry.COLUMN_NAME_SPELL_NAME));
+            String ritual = cursor.getString(cursor.getColumnIndexOrThrow(DatabaseContact.SpellEntry.COLUMN_NAME_RITUAL));
+            if (ritual.toLowerCase().equals("true")){this.ritual = true;}
+            else{this.ritual = false;}
+            this.level = cursor.getString(cursor.getColumnIndexOrThrow(DatabaseContact.SpellEntry.COLUMN_NAME_LEVEL));
+            this.school = cursor.getString(cursor.getColumnIndexOrThrow(DatabaseContact.SpellEntry.COLUMN_NAME_SCHOOl));
+            this.castingTime = cursor.getString(cursor.getColumnIndexOrThrow(DatabaseContact.SpellEntry.COLUMN_NAME_CASTING_TIME));
+            this.range = cursor.getString(cursor.getColumnIndexOrThrow(DatabaseContact.SpellEntry.COLUMN_NAME_RANGE));
+            this.materialComponents = cursor.getString(cursor.getColumnIndexOrThrow(DatabaseContact.SpellEntry.COLUMN_NAME_COMPONENTS));
+            this.duration = cursor.getString(cursor.getColumnIndexOrThrow(DatabaseContact.SpellEntry.COLUMN_NAME_DURATION));
+            this.description = cursor.getString(cursor.getColumnIndexOrThrow(DatabaseContact.SpellEntry.COLUMN_NAME_DESCRIPTION));
+            this.higherLevelDescription = cursor.getString(cursor.getColumnIndexOrThrow(DatabaseContact.SpellEntry.COLUMN_NAME_AT_HIGHER_LEVELS));
+            this.source = cursor.getString(cursor.getColumnIndexOrThrow(DatabaseContact.SpellEntry.COLUMN_NAME_SOURCE));
+            this.pageNo = cursor.getString(cursor.getColumnIndexOrThrow(DatabaseContact.SpellEntry.COLUMN_NAME_PAGE));
+        }
+        return this;
     }
 }
