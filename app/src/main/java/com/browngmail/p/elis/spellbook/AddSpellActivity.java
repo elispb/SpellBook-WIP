@@ -1,10 +1,7 @@
 package com.browngmail.p.elis.spellbook;
 
-import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
-import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -51,35 +48,21 @@ public class AddSpellActivity extends AppCompatActivity {
                 Spell s = ValidateInput();
                 if(s != null) {
                     //Save Spell
-                    SQLiteDatabase db = mDbHelper.getWritableDatabase();
-                    ContentValues contentValues = new ContentValues();
-                    contentValues.put(DatabaseContact.SpellEntry.COLUMN_NAME_SPELL_NAME, s.name);
-                    contentValues.put(DatabaseContact.SpellEntry.COLUMN_NAME_RITUAL, s.ritual.toString());
-                    contentValues.put(DatabaseContact.SpellEntry.COLUMN_NAME_LEVEL, s.level);
-                    contentValues.put(DatabaseContact.SpellEntry.COLUMN_NAME_SCHOOl, s.school);
-                    contentValues.put(DatabaseContact.SpellEntry.COLUMN_NAME_CASTING_TIME, s.castingTime);
-                    contentValues.put(DatabaseContact.SpellEntry.COLUMN_NAME_RANGE, s.range);
-                    contentValues.put(DatabaseContact.SpellEntry.COLUMN_NAME_COMPONENTS, s.materialComponents);
-                    contentValues.put(DatabaseContact.SpellEntry.COLUMN_NAME_DURATION, s.duration);
-                    contentValues.put(DatabaseContact.SpellEntry.COLUMN_NAME_DESCRIPTION, s.description);
-                    contentValues.put(DatabaseContact.SpellEntry.COLUMN_NAME_AT_HIGHER_LEVELS,s.higherLevelDescription);
-                    contentValues.put(DatabaseContact.SpellEntry.COLUMN_NAME_SOURCE, s.source);
-                    contentValues.put(DatabaseContact.SpellEntry.COLUMN_NAME_PAGE, s.pageNo);
+                    String newRowId = s.Save(mDbHelper);
+                    if (newRowId != null){
+                        //Saved MSG
+                        Context context = getApplicationContext();
+                        CharSequence text = getResources().getString(R.string.SavedMSG);
+                        int duration = Toast.LENGTH_LONG;
 
-                    long newRowId = db.insert(DatabaseContact.SpellEntry.TABLE_NAME, null, contentValues);
+                        Toast toast = Toast.makeText(context, text, duration);
+                        toast.show();
 
-                    //Saved MSG
-                    Context context = getApplicationContext();
-                    CharSequence text = getResources().getString(R.string.SavedMSG);
-                    int duration = Toast.LENGTH_LONG;
-
-                    Toast toast = Toast.makeText(context, text, duration);
-                    toast.show();
-
-                    //View Spell
-                    Intent intent = new Intent(view.getContext(), DisplaySpellActivity.class);
-                    intent.putExtra("SpellID", String.valueOf(newRowId));
-                    startActivity(intent);
+                        //View Spell
+                        Intent intent = new Intent(view.getContext(), DisplaySpellActivity.class);
+                        intent.putExtra("SpellID", String.valueOf(newRowId));
+                        startActivity(intent);
+                    }
                 }
             }
         });

@@ -1,6 +1,12 @@
 package com.browngmail.p.elis.spellbook;
 
+import android.content.ContentValues;
+import android.content.Context;
+import android.database.sqlite.SQLiteDatabase;
+
 import java.util.List;
+
+import static java.lang.Math.toIntExact;
 
 public class Spell {
     int id;
@@ -51,5 +57,33 @@ public class Spell {
         else {
             throw new Exception("ID must be a positive integer");
         }
+    }
+
+    String Save(DatabaseContact.SpellDBHelper mDbHelper){
+
+        SQLiteDatabase db = mDbHelper.getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(DatabaseContact.SpellEntry.COLUMN_NAME_SPELL_NAME, this.name);
+        contentValues.put(DatabaseContact.SpellEntry.COLUMN_NAME_RITUAL, this.ritual.toString());
+        contentValues.put(DatabaseContact.SpellEntry.COLUMN_NAME_LEVEL, this.level);
+        contentValues.put(DatabaseContact.SpellEntry.COLUMN_NAME_SCHOOl, this.school);
+        contentValues.put(DatabaseContact.SpellEntry.COLUMN_NAME_CASTING_TIME, this.castingTime);
+        contentValues.put(DatabaseContact.SpellEntry.COLUMN_NAME_RANGE, this.range);
+        contentValues.put(DatabaseContact.SpellEntry.COLUMN_NAME_COMPONENTS, this.materialComponents);
+        contentValues.put(DatabaseContact.SpellEntry.COLUMN_NAME_DURATION, this.duration);
+        contentValues.put(DatabaseContact.SpellEntry.COLUMN_NAME_DESCRIPTION, this.description);
+        contentValues.put(DatabaseContact.SpellEntry.COLUMN_NAME_AT_HIGHER_LEVELS, this.higherLevelDescription);
+        contentValues.put(DatabaseContact.SpellEntry.COLUMN_NAME_SOURCE, this.source);
+        contentValues.put(DatabaseContact.SpellEntry.COLUMN_NAME_PAGE, this.pageNo);
+
+        long newRowId = db.insert(DatabaseContact.SpellEntry.TABLE_NAME, null, contentValues);
+        try {
+            SetID(toIntExact(newRowId));
+        }catch(ArithmeticException ae) {
+            return null;
+        }catch (Exception e){
+            return null;
+        }
+        return String.valueOf(newRowId);
     }
 }
