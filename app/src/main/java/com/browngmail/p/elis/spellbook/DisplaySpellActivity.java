@@ -2,9 +2,6 @@ package com.browngmail.p.elis.spellbook;
 
 import android.content.Context;
 import android.content.Intent;
-import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
-import android.provider.BaseColumns;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.TextView;
@@ -22,55 +19,50 @@ public class DisplaySpellActivity extends AppCompatActivity {
         CharSequence spellID = intent.getStringExtra("SpellID");
         int duration = Toast.LENGTH_LONG;
 
-        Toast toast = Toast.makeText(context, spellID, duration);
-        toast.show();
-
-        //TODO Read and display spell from DB
         final DatabaseContact.SpellDBHelper mDbHelper = new DatabaseContact.SpellDBHelper(this);
         Spell spellToDisplay;
         try {
             spellToDisplay = new Spell(spellID);
             spellToDisplay = spellToDisplay.Load(mDbHelper);
-            TextView spellNameView = findViewById(R.id.NameDisplay);
-            spellNameView.setText(spellToDisplay.name);
+            DisplaySpell(spellToDisplay);
         }
-        catch(Exception e){
-            toast = Toast.makeText(context, e.getMessage(), duration);
+        catch(Exception e) {
+            Toast toast = Toast.makeText(context, e.getMessage(), duration);
             toast.show();
         }
-        /*SQLiteDatabase db = mDbHelper.getReadableDatabase();
-
-        String[] projection = {
-                BaseColumns._ID,
-                DatabaseContact.SpellEntry.COLUMN_NAME_SPELL_NAME,
-                DatabaseContact.SpellEntry.COLUMN_NAME_RITUAL,
-                DatabaseContact.SpellEntry.COLUMN_NAME_SCHOOl,
-                DatabaseContact.SpellEntry.COLUMN_NAME_CASTING_TIME,
-                DatabaseContact.SpellEntry.COLUMN_NAME_RANGE,
-                DatabaseContact.SpellEntry.COLUMN_NAME_COMPONENTS,
-                DatabaseContact.SpellEntry.COLUMN_NAME_DURATION,
-                DatabaseContact.SpellEntry.COLUMN_NAME_DESCRIPTION,
-                DatabaseContact.SpellEntry.COLUMN_NAME_AT_HIGHER_LEVELS,
-                DatabaseContact.SpellEntry.COLUMN_NAME_SOURCE,
-                DatabaseContact.SpellEntry.COLUMN_NAME_PAGE
-        };
-
-        String selection = BaseColumns._ID + " = ?";
-        String[] selectionArgs = {spellID.toString()};
-
-        Cursor cursor = db.query(
-                DatabaseContact.SpellEntry.TABLE_NAME,
-                projection,
-                selection,
-                selectionArgs,
-                null,
-                null,
-                null
-        );
-
-        cursor.moveToFirst();
-        String s = cursor.getString(cursor.getColumnIndexOrThrow(DatabaseContact.SpellEntry.COLUMN_NAME_SPELL_NAME));
+        //TODO display spell on screen
+    }
+    void DisplaySpell(Spell spellToDisplay){
         TextView spellNameView = findViewById(R.id.NameDisplay);
-        spellNameView.setText(s);*/
+        spellNameView.setText(spellToDisplay.name);
+        TextView ritualView = findViewById(R.id.RitualTag);
+        if(spellToDisplay.ritual) {
+            ritualView.setText("(Ritual)");
+        }else{
+            ritualView.setText("");
+        }
+        TextView levelAndSchool = findViewById(R.id.SchoolLevelDisplay);
+        // Combine level & school into one
+        StringBuilder sb = new StringBuilder();
+        String lv = spellToDisplay.level;
+        sb.append(lv);
+        sb.append(" " + spellToDisplay.school);
+        levelAndSchool.setText(sb.toString());
+        TextView castingTime = findViewById(R.id.CastingTimeDisplay);
+        castingTime.setText(castingTime.getText() + " " + spellToDisplay.castingTime);
+        TextView range = findViewById(R.id.RangeDisplay);
+        range.setText(range.getText() + " " + spellToDisplay.range);
+        TextView components = findViewById(R.id.ComponentsDisplay);
+        components.setText(components.getText() + " " + spellToDisplay.materialComponents); //TODO implement VSM booleans
+        TextView duration = findViewById(R.id.DurationDisplay);
+        duration.setText(duration.getText() + " " + spellToDisplay.duration);
+        TextView description = findViewById(R.id.DescriptionDisplay);
+        description.setText(spellToDisplay.description);
+        TextView higherDesc = findViewById(R.id.AtHigherLevelText);
+        higherDesc.setText(spellToDisplay.higherLevelDescription);
+        TextView source = findViewById(R.id.SourceDisplay);
+        source.setText(spellToDisplay.source);
+        TextView page = findViewById(R.id.PageDisplay);
+        page.setText(spellToDisplay.pageNo);
     }
 }
